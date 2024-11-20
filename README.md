@@ -15,7 +15,7 @@
 ---
 1. Клонируй репозиторий
 ```bash
-git clone https://github.com/EredinHawk/http.git
+https://github.com/EredinHawk/http-client.git
 ```
 2. Перейди в созданную директорию
 ```bash
