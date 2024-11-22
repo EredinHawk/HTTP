@@ -13,6 +13,9 @@ func GetURL(response *http.Response) (string, error) {
 		return "", err
 	}
 	i := Image{}
-	json.Unmarshal(result, &i)
+	err = json.Unmarshal(result, &i)
+	if err != nil {
+		return "", err
+	}
 	return i.URL, nil
 }
