@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"log"
 	"net/http"
 
@@ -15,22 +16,31 @@ func init() {
 	}
 }
 
-// main инициализирует HTTP клиент и запрос к API.
-// В случае успешного выполнения запроса возвращается HTTP ответ.
-// Из Body HTTP ответа десериализируется поле URL, в котором содержится строка url к ресурсу.
-// Перейдя по адресу, получим изображение.
+// main запускает http сервер с обработчиком, который выполняет HTTP запрос на сервер NASA
+// и возвращает результат в виде URL на изображение.
 func main() {
-	request, err := get.ConstructRequest()
-	if err != nil {
-		log.Fatal(err)
-	}
-	client := http.Client{}
+	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+		request, err := get.ConstructRequest()
+		if err != nil {
+			log.Fatal(err)
+		}
+		client := http.Client{}
 
-	response, err := client.Do(request)
+		response, err := client.Do(request)
+		if err != nil {
+			log.Fatal(err)
+		}
+		defer response.Body.Close()
+		
+		url, err := get.GetURL(response)
+		if err != nil {
+			fmt.Fprint(w, err.Error())
+		}
+		fmt.Fprint(w, url)
+	})
+	fmt.Println("Сервер прослушивает входящие запросы.")
+	err := http.ListenAndServe(":8080", nil)
 	if err != nil {
-		log.Fatal(err)
+		fmt.Println(err)
 	}
-	defer response.Body.Close()
-
-	get.PrintResponse(response)
 }
