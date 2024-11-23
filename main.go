@@ -36,7 +36,7 @@ func main() {
 		if err != nil {
 			fmt.Fprint(w, err.Error())
 		}
-		fmt.Fprint(w, url)
+		fmt.Fprintln(w, url)
 	})
 	fmt.Println("Сервер прослушивает входящие запросы.")
 	err := http.ListenAndServe(":8080", nil)
