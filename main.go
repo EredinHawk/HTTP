@@ -32,12 +32,14 @@ func main() {
 		}
 		defer response.Body.Close()
 		
-		url, err := get.GetURL(response)
+		result, err := get.GetURL(response)
 		if err != nil {
 			fmt.Fprint(w, err.Error())
 		}
-		fmt.Fprintln(w, url)
+		w.Header().Add("Content-Type", "application/json")
+		fmt.Fprintf(w, "%s", result)
 	})
+	
 	fmt.Println("Сервер прослушивает входящие запросы.")
 	err := http.ListenAndServe(":8080", nil)
 	if err != nil {
