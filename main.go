@@ -36,6 +36,7 @@ func main() {
 		if err != nil {
 			fmt.Fprint(w, err.Error())
 		}
+		w.Header().Add("Access-Control-Allow-Origin", "*")
 		w.Header().Add("Content-Type", "application/json")
 		fmt.Fprintf(w, "%s", result)
 	})
