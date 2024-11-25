@@ -1,5 +1,5 @@
 # HTTP клиент
-Эту работу можно посмотреть в моем портфолио - http://localhost:3000/projects/http-client
+Эту работу можно посмотреть в моем портфолио - http://eredinhaw.ru/projects/http-client
 
 ### Цель:
     Реализовать простой HTTP клиент для выполнения запроса к NASA Open API
