@@ -32,7 +32,7 @@ func main() {
 // constructServer инициализирует http сервер и эндпоинты
 func constructServer() *http.Server {
 	router := http.NewServeMux()
-	router.HandleFunc("GET /", handler_API)
+	router.HandleFunc("/", handler_API)
 
 	srv := &http.Server{
 		Addr:         "localhost:8080",
@@ -44,7 +44,10 @@ func constructServer() *http.Server {
 }
 
 func handler_API(w http.ResponseWriter, r *http.Request) {
-	w.Header().Add("Access-Control-Allow-Origin", "*")
+	w.Header().Add("Access-Control-Allow-Origin", "https://eredinhawk.ru")
+	w.Header().Add("Access-Control-Allow-Methods", "GET")
+	w.Header().Add("Access-Control-Allow-Credentials", "true")
+	w.Header().Add("Access-Control-Allow-Headers", "Authorization, Origin, X-Requested-With, Accept, X-PINGOTHER, Content-Type")
 	request, err := get.ConstructRequest()
 	if err != nil {
 		http.Error(w, err.Error(), 500)
